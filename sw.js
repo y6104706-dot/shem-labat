@@ -1,5 +1,5 @@
 // Offline shell for "שם לבת". Bump VERSION on every release so phones pick up the new build.
-const VERSION = "shem-v2";
+const VERSION = "shem-v3";
 const SHELL = ["/", "/index.html", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon-512.png", "/icons/maskable-512.png", "/icons/apple-touch-icon.png", "/fonts/assistant-hebrew-400-normal.woff2","/fonts/assistant-hebrew-600-normal.woff2","/fonts/assistant-hebrew-700-normal.woff2","/fonts/assistant-hebrew-800-normal.woff2","/fonts/assistant-latin-400-normal.woff2","/fonts/assistant-latin-600-normal.woff2","/fonts/assistant-latin-700-normal.woff2","/fonts/assistant-latin-800-normal.woff2","/fonts/frank-ruhl-libre-hebrew-700-normal.woff2","/fonts/frank-ruhl-libre-hebrew-900-normal.woff2","/fonts/frank-ruhl-libre-latin-700-normal.woff2","/fonts/frank-ruhl-libre-latin-900-normal.woff2"];
 
 self.addEventListener("install", (e) => {
