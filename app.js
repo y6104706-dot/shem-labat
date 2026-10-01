@@ -2263,6 +2263,8 @@ S.room=LS.get('ns:room');
 // keep the personal key in the address bar: an iPhone home-screen app starts from the URL it was added from
 // and does not share storage with Safari, so the link itself must carry the key
 try{if(S.room&&S.me){const want='/?k='+S.room+'&p='+S.me;if(location.pathname+location.search!==want)history.replaceState(history.state,'',want);}}catch(e){}
+// first visit on this phone: the gift intro from Mom and Dad
+if(S.room&&S.me&&!LS.get('ns:introSeen')&&!/[?&]nointro/.test(location.search)){location.replace('/intro.html');}
 S.sync={state:'idle',last:LS.get('ns:lastSync')||0,dirty:!!LS.get('ns:dirty')};
 let saveT=null,saving=false,saveAgain=false;
 function persist(){
@@ -2651,6 +2653,7 @@ function renderHome(){
     <div class="row" style="flex-wrap:nowrap"><input type="text" id="addN" placeholder="למשל: שם מהמשפחה" maxlength="20"><button class="btn" id="addB">הוספה</button></div>
     <div class="muted" style="font-size:13px">השם ייכנס לסבב הבא של שניכם.</div>
   </div>
+  <a class="btn ghost wide" href="/intro.html" style="text-align:center;text-decoration:none;display:block">המצגת מאבא ואמא</a>
   <button class="btn ghost wide" id="sync">סנכרון ידני בין טלפונים</button>
   </div>`;
 }
