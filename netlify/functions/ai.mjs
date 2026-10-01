@@ -106,6 +106,21 @@ export default async (req) => {
   const store = getStore({ name: "shem-labat", consistency: "strong" });
 
   // cached results: GET /api/ai?room=..&key=name:הדס | report
+  // health check: GET /api/ai?room=..&ping=1 — is the key set and accepted by the API? (tiny call, rate-limited per room)
+  if (req.method === "GET" && url.searchParams.get("ping")) {
+    const k = process.env.ANTHROPIC_API_KEY;
+    if (!k) return json({ key: false });
+    const pc = Number((await store.get(`${room}/ai-ping`)) || 0);
+    if (pc >= 20) return json({ key: true, checked: false, error: "ping_limit" });
+    await store.set(`${room}/ai-ping`, String(pc + 1));
+    const r = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-api-key": k, "anthropic-version": "2023-06-01" },
+      body: JSON.stringify({ model: MODEL_FAST, max_tokens: 5, messages: [{ role: "user", content: "ping" }] }),
+    }).catch((e) => ({ ok: false, status: 0, text: async () => String(e) }));
+    const detail = r.ok ? "" : (await r.text()).slice(0, 300);
+    return json({ key: true, keyPrefix: k.slice(0, 10), ok: r.ok, status: r.status, model: MODEL_FAST, detail });
+  }
   if (req.method === "GET") {
     const key = clip(url.searchParams.get("key"), 80);
     const hit = key ? await store.get(`${room}/ai/${key}`, { type: "json" }) : null;
