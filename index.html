@@ -168,7 +168,7 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
 .rank .r:last-child{border-bottom:0}
 .rank .i{font-variant-numeric:tabular-nums;color:var(--faint);font-weight:800}
 .rank .nm{font-family:var(--display);font-size:24px;font-weight:700;min-width:0}
-.rank .r:first-child .nm{font-size:30px;font-weight:900;background:linear-gradient(90deg,var(--star),#FFF0C2,var(--star));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 3.2s linear infinite}
+.rank.best .r:first-child .nm{font-size:30px;font-weight:900;background:linear-gradient(90deg,var(--star),#FFF0C2,var(--star));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 3.2s linear infinite}
 @keyframes shimmer{to{background-position:-200% 0}}
 .pill{font-size:12px;font-weight:800;border-radius:999px;padding:4px 10px;white-space:nowrap}
 .pill.s{background:color-mix(in srgb,var(--shilat) 18%,transparent);color:var(--shilat)}
@@ -235,7 +235,7 @@ textarea{min-height:90px;font-size:12px;direction:ltr}
 .done-check path{stroke:#fff;stroke-dasharray:60;stroke-dashoffset:60;animation:draw .5s ease forwards .7s}
 @keyframes draw{to{stroke-dashoffset:0}}
 @media (prefers-reduced-motion: reduce){
-  .aurora i,.btn.shine::after,.nm .l,.card .mean,.card .facts,.anim *,.reveal .chip,.rank .r:first-child .nm,.celebrate *,.card.enter,.fr .b i{animation:none!important}
+  .aurora i,.btn.shine::after,.nm .l,.card .mean,.card .facts,.anim *,.reveal .chip,.rank.best .r:first-child .nm,.celebrate *,.card.enter,.fr .b i{animation:none!important}
 }
 </style>
 </head>
@@ -2926,7 +2926,7 @@ function renderMatches(){
   return `<div class="stack">
   <div class="panel"><div class="meter"><span class="pct">${pct(agree)}</span><span class="muted">הסכמה על ${c.sh.size} שמות משותפים</span></div></div>
   <div class="panel stack"><div class="label">הטופ המשותף</div>
-   ${c.full.length?`<div class="rank">${c.full.slice(0,30).map((x,i)=>`<div class="r"><span class="i">${i+1}</span><span class="nm">${esc(x.n)}</span>${stars(x.n)}</div>`).join('')}</div>`:'<div class="empty">עוד אין שם ששניכם אהבתם.</div>'}
+   ${c.full.length?`<div class="rank best">${c.full.slice(0,30).map((x,i)=>`<div class="r"><span class="i">${i+1}</span><span class="nm">${esc(x.n)}</span>${stars(x.n)}</div>`).join('')}</div>`:'<div class="empty">עוד אין שם ששניכם אהבתם.</div>'}
    <div class="muted" style="font-size:13px">מדורג לפי עוצמת הלייק של שניכם, פחות היסוס.</div></div>
   <div class="panel stack"><div class="label">למשא ומתן</div><div class="muted" style="font-size:14px">אחד אהב, השני התלבט לפני שדחה.</div>
    ${c.nego.length?`<div class="rank">${c.nego.map(x=>`<div class="r"><span class="i">·</span><span class="nm">${esc(x.n)}</span>${who(x.who)}</div>`).join('')}</div>`:'<div class="empty">אין כרגע.</div>'}</div>
