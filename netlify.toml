@@ -6,6 +6,18 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
+# Only scripts from this site may run. This also keeps Netlify's injected "Powered by Netlify"
+# badge (an inline script) from covering the bottom tab bar.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "script-src 'self'"
+
+[[headers]]
+  for = "/app.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
 [[headers]]
   for = "/sw.js"
   [headers.values]
