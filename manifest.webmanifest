@@ -4,7 +4,6 @@
   "description": "המשחק של שילת וניב לבחירת שם לבת",
   "lang": "he",
   "dir": "rtl",
-  "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
